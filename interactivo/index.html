@@ -1,0 +1,102 @@
+<html class="" lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Lupa</title>
+	<style class="cp-pen-styles">
+		body {
+			overflow: hidden;
+			margin: 0;
+			background: #fff;
+		}
+
+		#main-img {
+			display: block;
+			margin: 20px auto;
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			-webkit-filter: grayscale(0);
+			filter: grayscale(0);
+		}
+
+		#zoom-img {
+			pointer-events: none;
+			position: relative;
+			top: 100%;
+			left: 100%;
+		}
+
+		#zoom {
+			position: absolute;
+			width: 250px;
+			height: 250px;
+			box-shadow: 0 0 0 2px rgba(149, 79, 105, 0.5), 5px 5px 10px 5px rgba(0, 0, 0, 0.2);
+			border-radius: 50%;
+			top: 0;
+			left: 0;
+			overflow: hidden;
+			pointer-events: none;
+			visibility: hidden;
+			opacity: 0;
+		}
+	</style>
+</head>
+
+<body>
+	<img id="main-img" src="images/9765019294_91f9710e92_b_d.jpg" style="filter: grayscale(0); max-width: 500px"
+		width="100%" height="auto">
+	<div id="zoom"
+		style="transform: translate(-50%, -50%) matrix(0, 0, 0, 0, 569, 309); visibility: hidden; opacity: 0;"> <img
+			id="zoom-img" src="images/9765019294_91f9710e92_b_d.jpg"
+			style="transform: translate(-50%, -50%) matrix(1, 0, 0, 1, 305.017, 118.731);"> </div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
+	<script id="rendered-js">
+		var zoom = document.querySelector("#zoom");
+		var zoomImg = document.querySelector("#zoom-img");
+		var mainImg = document.querySelector("#main-img");
+		var enterTL = new TimelineMax({ paused: true });
+		var timer = TweenLite.delayedCall(1, () => enterTL.reverse()).pause();
+
+		var cx, cy, ratio;
+
+		window.addEventListener("load", init);
+
+		function init() {
+
+			zoomImg.src = mainImg.src;
+			ratio = mainImg.naturalWidth / mainImg.width;
+			resize();
+
+			TweenLite.set([zoom, zoomImg], { xPercent: -50, yPercent: -50 });
+			TweenLite.set(zoom, { autoAlpha: 0, scale: 0 });
+
+			enterTL.
+				to(mainImg, 0.5, { filter: "grayscale(1)", "-webkit-filter": "grayscale(1)" }, 0).
+				to(zoom, 0.5, { autoAlpha: 1, scale: 1 }, 0);
+
+			window.addEventListener("resize", resize);
+			mainImg.addEventListener("mouseleave", leaveAction);
+			mainImg.addEventListener("mousemove", moveAction);
+		}
+
+		function leaveAction() {
+			enterTL.reverse();
+		}
+
+		function moveAction(e) {
+			enterTL.play();
+			timer.restart(true);
+			TweenLite.set(zoom, { x: e.x, y: e.y });
+			TweenLite.set(zoomImg, { x: (cx - e.x) * ratio, y: (cy - e.y) * ratio });
+		}
+
+		function resize() {
+			var rect = mainImg.getBoundingClientRect();
+			cx = rect.left + rect.width / 2;
+			cy = rect.top + rect.height / 2;
+		}
+          //# sourceURL=pen.js
+	</script>
+</body>
+
+</html>

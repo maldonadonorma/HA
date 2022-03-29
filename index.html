@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Licenciatura en Historia del Arte</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+
+  <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="js/usabilidad.js"></script>
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+  <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="css/estilos.css" id="cssArchivo">
+  <link rel="stylesheet" href="css/animations.css">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand:300" rel="stylesheet">
+  <script>
+    /*
+    * marco_caloch - CUAED 20170106
+    */
+    var pesoGeneral = 20;//peso de control
+    var screenWidth = screen.width;
+    var screenHeight = screen.height;
+
+    function getHeightDoc(frame, opcion, border) {
+      var altura = 0;
+      var elementoA = document.getElementById(opcion);
+      var elementoB = $("#" + opcion);
+
+      //peso control si es dispositivo pequeño
+      if (screen.width <= 680) {
+        border = 0;
+        console.log("peso control:");
+      }//fin if
+      else if (screen.width <= 1280) {
+        border = Math.round(pesoGeneral / 2);
+      } else {
+        border = pesoGeneral;
+      }//fin else
+
+      if (elementoA) {
+        if (elementoA.offsetHeight > 0) {
+          altura = elementoA.offsetHeight + border;
+          //alert("offsetHeight="+elementoA.offsetHeight);
+        }
+        else if (elementoA.clientHeight > 0) {
+          altura = elementoA.clientHeight + border;
+          //alert("clientHeight="+elementoA.clientHeight);
+        }
+        else if (elementoA.height > 0) {
+          altura = elementoA.height + border;
+          //alert("height="+elementoA.height);
+        }
+        //alert("[JS]"+opcion+"="+altura);
+      } else if (elementoB != null) {
+        altura = $("#" + opcion).height() + border;
+        ///alert("[JQ]"+opcion+"="+altura);
+      } else {
+        altura = document.height + border;
+        //alert("[N]"+opcion+"="+altura);
+      }
+      //alert(opcion+"="+altura);
+      var fpadre = parent.document.getElementById(frame); //update 20170823
+      fpadre.setAttribute("height", altura); //da valor a frame superior
+
+      console.log("existe nivel 1 " + fpadre.name + " :: " + fpadre.height + " valor:" + altura);
+      console.log("muestra::" + $("#muestra").height());
+      //window.parent.document.getElementById(frame).height = altura;
+      //$("#"+frame, window.parent.document).attr("height",altura);
+    }//fin function
+
+
+    // redimenciona si hay cambio en tamaño de pantalla
+    function aplicaDimensionar() {
+      console.log(screenWidth + " // " + screen.width);
+      //if(screenWidth != screen.width || screenHeight != screen.height){
+      getHeightDoc('principal', 'muestra', pesoGeneral);//ajustamos valores
+      screenWidth = screen.width;
+      screenHeight = screen.height
+      console.log("revisa y cambia x tamaño de pantalla");
+      //}//fin if
+
+      //}  
+    }//fin aplicaDimensionar
+    //cada 3 segundos revisa
+    setInterval(function () { aplicaDimensionar(); }, 3000);
+
+  </script>
+</head>
+
+<body id="muestra" onLoad="getHeightDoc('principal','muestra',pesoGeneral);"
+  onResize="getHeightDoc('principal','muestra',pesoGeneral);">
+  <header id="object" class="slideUp">
+    <div id="object2" class="col-sm-12 col-md-4 slideRight"> <span class="NombreA">Unidad 1</span>
+      <br>
+      <span class="NombreB">Introducción al Pensamiento Humanista </span>
+    </div>
+  </header>
+  <div id="object3" class="bigEntrance accesibilidad">
+    <center>
+      <div id="incrementar_txt" onclick="increaseFontSize()" title="Aumenta el tamaño del texto"></div>
+      <div id="decrementar_txt" onclick="decreaseFontSize()" title="Disminuye el tamaño del texto"></div>
+      <a href="javascript:window.print();" title="Imprimir">
+        <div id="print" title="Imprimir"></div>
+      </a> <a href="#" onclick="cambiarArchivoCss('css/estilo_accesible.css');">
+        <div class="contraste_b_n" title="Alto contraste"></div>
+      </a> <a href="#" onclick="cambiarArchivoCss('css/estilos.css');">
+        <div class="contraste_normal" title="Contraste normal"></div>
+      </a>
+    </center>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-8">
+        <h1>Introducción</h1>
+        <p>El humanismo es una doctrina y postura intelectual basada en el ser humano como centro de todo. El término
+          surge en el siglo XIX y está formado por el latín <i>humanus</i> (humano) más el sufijo –ismo (doctrina,
+          sistema, movimiento y actitud). Tiene su origen en la <i>paideia</i> de la Antigua Grecia, donde el ser humano
+          era el canon fundamental de la cultura, la ciencia, sociedad, filosofía, ética y arte.</p>
+        <p>En la Roma antigua se empleó la palabra <i>humanitas</i> para referirse a un conjunto del saber que los
+          ciudadanos libres debían aprender. Esta tradición fue heredada en las siete artes liberales (<i>trivium y
+            cuadrivium</i>) de la formación académica medieval. A partir de la segunda mitad del siglo XIV comenzó a
+          aplicarse el término <i>studia humanitatis</i>, utilizado por Cicerón, para designar al estudio de los textos
+          clásicos de la gramática, la retórica, la historia, la poética y la filosofía moral.</p>
+        <p>Hoy en sentido específico por humanismo se entiende un movimiento filosófico e intelectual surgido en la
+          península itálica del siglo XIV y luego expandido en la mayor parte de Europa. Esta corriente rompía las
+          tradiciones escolásticas medievales y pretendía descubrir al hombre y dar un sentido racional a la vida. Para
+          ello, promovió una formación íntegra del hombre en todos los aspectos mediante la recuperación y estudio de
+          textos antiguos; impulsó un florecimiento de todos los tipos de saberes y su consecuente aparición de
+          intelectuales altamente polifacéticos. Los escritores y filósofos más destacados son Dante Alighieri,
+          Francesco Petrarca, Marsilio Ficino, Guillaume Budé, Erasmo de Rotterdam y Tomás Moro.</p>
+        <p>En el campo del arte, la nueva conciencia de renacer las herencias de la Antigüedad clásica surge a partir de
+          la segunda mitad del siglo XIII. En especial, la pintura ocupa un papel primordial en el proceso de transición
+          figurativa. Así, a finales del siglo XIII y principios del XIV, artistas como Cimabue, Duccio y Giotto,
+          partiendo de la tradición bizantina reinante de la época, comenzaron a representar las figuras humanas de
+          forma natural e incluso en acción, rompiendo con la rigidez y frontalidad de aquélla.</p>
+        <p>En suma, en esta unidad identificarás factores sociopolíticos y culturales que favorecieron el surgimiento y
+          desarrollo del humanismo del siglo XIV al XVI: 1) la emigración de intelectuales griegos a Italia, causada por
+          la invasión turca al Imperio bizantino; 2) el papel de la imprenta de tipos móviles en la difusión de ideas
+          humanistas; 3) los mecenas como promotores del humanismo. De igual modo, conocerás los fundamentos filosóficos
+          del humanismo mediante las lecturas.</p>
+        <p>Revisarás las fuentes sobre las ideas del Renacimiento, así como las definiciones del concepto y las
+          discusiones actuales del tema con base en la bibliografía. Observarás las obras del arte del <i>Duecento y
+            Trecento</i><span style="vertical-align: super;">1</span> , para entender procesos de transición del Medievo
+          al Renacimiento.</p>
+
+
+        <div class="img">
+          <center><img src="img/Petrarca_u1.jpg" class="img-responsive" alt="Petrarca" title=": Petrarca"></center> <br>
+          <p>(s. a.) (s. f.). <i>Retrato de Petrarca</i> [fotografía]. Tomada de
+            https://it.wikipedia.org/wiki/Francesco_Petrarca#/media/File:Petrarch_by_Bargilla.jpg </p>
+        </div>
+        <br>
+        <hr>
+        <p class="cita"><span style="vertical-align: super;">1</span> <i>Duecento y Trecento</i> (doscientos y
+          trescientos en italiano) designan al siglo XIII y el XIV respectivamente en la historia cultural de Italia. De
+          igual modo, se emplean los términos <i>Quattrocento</i> (cuatrocientos) y Cinquecento (quinientos) para
+          denominar al periodo cultural italiano de los siglos XV y XVI.</p>
+
+
+      </div>
+      <div class="row">
+        <div class="col-sm-2 col-md-0"></div>
+        <div class="col-sm-8 col-md-4">
+          <div class="sideBox"> <img src="img/BG01.png" width="100%">
+            <p>Al término de la unidad, el alumno podrá:<br>
+
+              • Distinguir los procesos de transformación artística durante el <i>Duecento y el Trecento</i>, a partir
+              de su contexto sociopolítico y cultural, para la comprensión de los factores que permitieron el
+              surgimiento de nuevas corrientes artísticas en la península itálica.
+            </p>
+          </div>
+          <div class="temario"> <span class="temarioTit">Temas</span>
+            <hr>
+            <span class="menSUBT">1. Ideas de la <i>rinascita</i>, Renacimiento y renacimientos</span>
+            <hr>
+            <span class="menSUBT">2. Ideas de la <i>rinascita</i>, Renacimiento y renacimientos</span>
+            <hr>
+            <span class="menSUBT">3. Contexto cultural: el humanismo</span>
+            <hr>
+            <span class="menSUBT">4. Transición del Medioevo al Renacimiento</span>
+          </div>
+
+          <br>
+
+          <div class="temario"> <span class="temarioTit">Contenidos</span>
+            <hr>
+            <span class="menSUBT"><a href="UAPA/index.html" target="_blank"
+                style="text-decoration:underline; color:#69417c;"><b>Tema
+                  interactivo</b></a></span>
+
+            <hr>
+            <span class="menSUBT"><a href="descargable.pdf" target="_blank"
+                style="text-decoration:underline; color:#69417c;"><b>Descargable</b></a></span>
+            <hr>
+            <span class="menSUBT"><a href="interactivo/index.html" target="_blank"
+                style="text-decoration:underline; color:#69417c;"><b>Imagen Interactiva</b></a></span>
+
+          </div>
+
+
+        </div>
+        <div class="col-sm-2 col-md-0"></div>
+      </div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+    <div class="col-sm-2 col-md-0"></div>
+  </div>
+
+
+
+  </div>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script type="text/javascript">
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+  </script>
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/usabilidad.js"></script>
+</body>
+
+</html>
